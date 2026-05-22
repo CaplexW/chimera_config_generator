@@ -7,13 +7,13 @@ const webPass ='Admin12345';
 function downloadConfig() {
   const login = document.getElementById('login-input').value;
   const password = document.getElementById('password-input').value;
-  const adress = generateAdress(login);
-  config = generateConfig(login, password, adress);
+  const address = generateAddress(login);
+  config = generateConfig(login, password, address);
   const url = URL.createObjectURL(config);
 
   const a = document.createElement('a');
   a.href = url;
-  a.download = `chimera_${adress}_config.dat`;
+  a.download = `chimera_${address}_config.dat`;
   document.body.appendChild(a);
   a.click();
 
@@ -23,7 +23,7 @@ function downloadConfig() {
   }, 0);
 }
 
-function generateConfig(login, password, adress) {
+function generateConfig(login, password, address) {
   const config = `#The following line must not be removed.
 Default
 Login=${webLogin}
@@ -402,7 +402,7 @@ telegram_bot_message_update_period=1
 telegram_bot_message_update_marker=\.\.\.
 telegram_bot_message_replyto=1
 arpwatch=0
-SSID1=GTS-${adress}_2.4G
+SSID1=GTS-${address}
 staCur_SSID=
 staEncrypt=NONE
 store_ttl=0
@@ -526,7 +526,7 @@ HT_TxStreamINIC=2
 HT_RxStreamINIC=2
 HT_EXTCHAINIC=1
 HT_BWINIC=1
-SSID1INIC=GTS-${adress}
+SSID1INIC=GTS-${address}_5G
 FastRoaming=0
 LowRateCtrl=0
 LowRateRatioThreshold=2
@@ -762,7 +762,7 @@ DyncVgaEnable=1
   return new Blob([config], { type: 'text/plain' });
 }
 
-function generateAdress(login) {
+function generateAddress(login) {
   const index = login.indexOf('_');
   return index !== -1 ? login.substring(0, index) : login;
 }
